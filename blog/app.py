@@ -3,7 +3,7 @@
 from flask import Flask
 from blog.extensions import bcrypt, cache, db, migrate, jwt, cors
 
-from blog import commands, user
+from blog import commands, user, profile
 from blog.config import ProdConfig
 from blog.exceptions import InvalidUsage
 
@@ -40,6 +40,7 @@ def register_blueprints(app):
     # cors.init_app(user.views.blueprint, origins=origins)
 
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(profile.views.blueprint)
 
 
 def register_errorhandlers(app):
@@ -59,6 +60,7 @@ def register_shellcontext(app):
         return {
             'db': db,
             'User': user.models.User,
+            'Profile': profile.models.Profile,
         }
 
     app.shell_context_processor(shell_context)

@@ -11,6 +11,7 @@ class User(db.Model):
     password = db.Column(db.Binary(128), nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    profile = db.relationship('Profile', backref='user', uselist=False)
     token: str = ''
 
     def __init__(self, username, email, password=None):
